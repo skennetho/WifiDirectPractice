@@ -163,10 +163,12 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
                 boolean notNull= true;
                 if(fragment == null) notNull = false;
                 ////////////////////////////////////
+
                 Log.d("태그", " 검색 아이템 클릭"+notNull );
                 manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
                     @Override
                     public void onSuccess() {
+                        fragment.onInitiateDiscovery();
                         Toast.makeText(WiFiDirectActivity.this, "Discovery Initiated",
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -176,6 +178,10 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+                return true;
+            case R.id.atn_direct_videoCall:
+                Intent intent = new Intent(WiFiDirectActivity.this, MainActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
