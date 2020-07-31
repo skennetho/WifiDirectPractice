@@ -19,11 +19,10 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
- * 파일 전송 요청 을 진행하는 서비스
- * 즉 WiFi Direct Group Owner로 소켓 연결을 열고  파일을 작성하는 인텐트
+ * A service that process each file transfer request i.e Intent by opening a
+ * socket connection with the WiFi Direct Group Owner and writing the file
  */
 public class FileTransferService extends IntentService {
-    final String TAG ="FileTransferService";
 
     private static final int SOCKET_TIMEOUT = 5000;
     public static final String ACTION_SEND_FILE = "com.example.android.wifidirect.SEND_FILE";
@@ -54,23 +53,23 @@ public class FileTransferService extends IntentService {
             int port = intent.getExtras().getInt(EXTRAS_GROUP_OWNER_PORT);
 
             try {
-                Log.d(TAG, "Opening client socket - ");
+                Log.d(WiFiDirectActivity.TAG, "Opening client socket - ");
                 socket.bind(null);
                 socket.connect((new InetSocketAddress(host, port)), SOCKET_TIMEOUT);
 
-                Log.d(TAG, "Client socket - " + socket.isConnected());
+                Log.d(WiFiDirectActivity.TAG, "Client socket - " + socket.isConnected());
                 OutputStream stream = socket.getOutputStream();
                 ContentResolver cr = context.getContentResolver();
                 InputStream is = null;
                 try {
                     is = cr.openInputStream(Uri.parse(fileUri));
                 } catch (FileNotFoundException e) {
-                    Log.d(TAG, e.toString());
+                    Log.d(WiFiDirectActivity.TAG, e.toString());
                 }
                 DeviceDetailFragment.copyFile(is, stream);
-                Log.d(TAG, "Client: Data written");
+                Log.d(WiFiDirectActivity.TAG, "Client: Data written");
             } catch (IOException e) {
-                Log.e(TAG, e.getMessage());
+                Log.e(WiFiDirectActivity.TAG, e.getMessage());
             } finally {
                 if (socket != null) {
                     if (socket.isConnected()) {

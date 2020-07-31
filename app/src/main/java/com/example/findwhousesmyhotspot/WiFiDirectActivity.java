@@ -39,6 +39,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
 import com.google.android.material.snackbar.Snackbar;
 
 /**
@@ -124,7 +125,7 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
      */
     public void resetData() {
         DeviceListFragment fragmentList = (DeviceListFragment) getSupportFragmentManager().findFragmentById(R.id.frag_list);
-        DeviceDetailFragment fragmentDetails  = (DeviceDetailFragment) getSupportFragmentManager().findFragmentById(R.id.frag_detail);
+        DeviceDetailFragment fragmentDetails = (DeviceDetailFragment) getSupportFragmentManager().findFragmentById(R.id.frag_detail);
         if (fragmentList != null) {
             fragmentList.clearPeers();
         }
@@ -160,11 +161,12 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
                 }
                 final DeviceListFragment fragment = (DeviceListFragment) getSupportFragmentManager().findFragmentById(R.id.frag_list);
                 ///////////////////////디버그
-                boolean notNull= true;
-                if(fragment == null) notNull = false;
+                boolean notNull = true;
+                if (fragment == null) notNull = false;
                 ////////////////////////////////////
 
-                Log.d("태그", " 검색 아이템 클릭"+notNull );
+                Log.d("태그", " 검색 아이템 클릭" + notNull);
+
                 manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
                     @Override
                     public void onSuccess() {
@@ -172,16 +174,13 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
                         Toast.makeText(WiFiDirectActivity.this, "Discovery Initiated",
                                 Toast.LENGTH_SHORT).show();
                     }
+
                     @Override
                     public void onFailure(int reasonCode) {
                         Toast.makeText(WiFiDirectActivity.this, "Discovery Failed : " + reasonCode,
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
-                return true;
-            case R.id.atn_direct_videoCall:
-                Intent intent = new Intent(WiFiDirectActivity.this, MainActivity.class);
-                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -234,7 +233,7 @@ public class WiFiDirectActivity extends AppCompatActivity implements ChannelList
         }
 
         // Hardware capability check
-        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (wifiManager == null) {
             Log.e(TAG, "Cannot get Wi-Fi system service.");
             return false;
