@@ -46,6 +46,7 @@ import java.util.List;
  */
 public class DeviceListFragment extends ListFragment implements PeerListListener {
 
+    final static String TAG = "DeviceListFragment";
     private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
     ProgressDialog progressDialog = null;
     View mContentView = null;
@@ -73,19 +74,25 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
     }
 
     private static String getDeviceStatus(int deviceStatus) {
-        Log.d(WiFiDirectActivity.TAG, "Peer status :" + deviceStatus);
+        Log.d(TAG, "Peer status :" + deviceStatus);
         switch (deviceStatus) {
             case WifiP2pDevice.AVAILABLE:
+                Log.d(TAG, "Peer status :(Available)" + deviceStatus);
                 return "Available";
             case WifiP2pDevice.INVITED:
+                Log.d(TAG, "Peer status :(Invited)" + deviceStatus);
                 return "Invited";
             case WifiP2pDevice.CONNECTED:
+                Log.d(TAG, "Peer status :(Connected)" + deviceStatus);
                 return "Connected";
             case WifiP2pDevice.FAILED:
+                Log.d(TAG, "Peer status :(Failed)" + deviceStatus);
                 return "Failed";
             case WifiP2pDevice.UNAVAILABLE:
+                Log.d(TAG, "Peer status :(Unavailable)" + deviceStatus);
                 return "Unavailable";
             default:
+                Log.d(TAG, "Peer status :(Unknown)" + deviceStatus);
                 return "Unknown";
         }
     }
@@ -122,7 +129,7 @@ public class DeviceListFragment extends ListFragment implements PeerListListener
         peers.addAll(peerList.getDeviceList());
         ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
         if (peers.size() == 0) {
-            Log.d(WiFiDirectActivity.TAG, "No devices found");
+            Log.d(TAG, "No devices found");
             return;
         }
 

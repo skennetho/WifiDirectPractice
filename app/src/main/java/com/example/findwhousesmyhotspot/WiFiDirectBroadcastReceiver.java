@@ -31,6 +31,7 @@ import android.util.Log;
  * */
 public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 
+    final static String TAG = "DeviceListFragment";
     private WifiP2pManager manager;
     private Channel channel;
     private WiFiDirectActivity activity;
@@ -68,7 +69,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                 activity.resetData();
 
             }
-            Log.d(WiFiDirectActivity.TAG, "P2P state changed - " + state);
+            Log.d(TAG, "P2P state changed - " + state);
         } else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) {
             /**
              *  Wi-Fi P2P manager에서 사용할 수 있는 상대방을 요청한다.
